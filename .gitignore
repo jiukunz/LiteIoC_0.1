@@ -1,0 +1,4 @@
+.gradle
+.idea/
+IoC.*
+out/
