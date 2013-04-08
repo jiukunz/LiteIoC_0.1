@@ -45,7 +45,7 @@ public class CustomerBean implements Bean {
     }
 
     @Override
-    public Object toObject() {
+    public Object toInstance() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

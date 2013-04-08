@@ -2,12 +2,18 @@ package com.thoughtworks;
 
 public class BasicBean implements Bean {
 
-    private String name;
-    private Class clazz;
     private Object value;
 
     @Override
-    public Object toObject() {
+    public Object toInstance() {
         return value;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
     }
 }
