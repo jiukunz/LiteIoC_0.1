@@ -1,0 +1,14 @@
+<container>
+    <bean name="bar" class='com.thoughtworks.Bar'>
+        <property name='name' class='java.class.String'>bar</property>
+        <property name='age' class='java.class.Integer'>28</property>
+    </bean>
+
+    <bean name="foo" class='Foo'>
+        <property name='name' class='java.class.String'>fool</property>
+        <property name='age' class='java.class.Integer'>28</property>
+        <property name='bar' ref='bar'/>
+    </bean>
+
+    <bean name='name' class='java.class.String'>bar</bean>
+</container>
