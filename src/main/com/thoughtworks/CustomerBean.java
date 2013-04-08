@@ -8,9 +8,10 @@ public class CustomerBean implements Bean {
 
     private String name;
     private Class clazz;
+    private Object value;
 
-    private Map<String,Bean> params = newHashMap();
-    private Map<String,Bean> constructParams = newHashMap();
+    private Map<String, Bean> params = newHashMap();
+    private Map<String, Bean> constructParams = newHashMap();
 
     public String getName() {
         return name;
@@ -45,12 +46,29 @@ public class CustomerBean implements Bean {
     }
 
     @Override
-    public Object toInstance() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Object toInstance() throws Exception {
+        if (this.clazz == String.class || this.clazz == Integer.class) {
+            return value;
+        }
+        Object object = clazz.newInstance();
+        for (Map.Entry<String, Bean> entry : params.entrySet()) {
+            Object property = entry.getValue().toInstance();
+            String param = entry.getKey();
+            param = param.substring(0, 1).toUpperCase() + param.substring(1);
+            clazz.getMethod("set" + param, new Class[]{property.getClass()}).invoke(object, property);
+        }
+        return object;
     }
 
     public Object construct() {
         return null;
     }
 
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
 }
