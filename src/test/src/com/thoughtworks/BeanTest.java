@@ -11,10 +11,17 @@ public class BeanTest {
 
     @Test
     public void primitiveBeanAlsoMakeSense() throws Exception {
-        Bean primitiveBean = new Bean();
-        primitiveBean.setValue("I am also a Bean");
+        Bean intBean = new Bean();
+        intBean.setClazz(Integer.class);
+        intBean.setValue("288");
 
-        assertThat((String) primitiveBean.toInstance(), is("I am also a Bean"));
+        assertThat((Integer) intBean.toInstance(), is(288));
+
+        Bean strBean = new Bean();
+        strBean.setClazz(String.class);
+        strBean.setValue("288");
+
+        assertThat((String) strBean.toInstance(), is("288"));
     }
 
     @Test

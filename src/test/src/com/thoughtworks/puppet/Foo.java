@@ -5,6 +5,10 @@ public class Foo {
     private Integer intProp;
     private Bar bar;
 
+    //Required
+    public Foo(){
+    }
+
     public Foo(Integer intProp, Bar bar) {
         this.intProp = intProp;
         this.bar = bar;

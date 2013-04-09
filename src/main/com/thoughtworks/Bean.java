@@ -23,9 +23,9 @@ public class Bean {
         if(!params.isEmpty()){
             return constructFromSet();
         } else if (!constructParams.isEmpty()){
-            return constructFromConstruction();
+            return constructFromConstructor();
         }
-        return value;
+        return StringUtils.toPrimitive(clazz,value);
     }
 
     private Object constructFromSet() throws Exception {
@@ -49,7 +49,7 @@ public class Bean {
         return object;
     }
 
-    private Object constructFromConstruction() throws Exception {
+    private Object constructFromConstructor() throws Exception {
         List<Object> cParams = newArrayList();
         Class[] paramTypes = new Class[constructParams.size()];
         int i = 0;
