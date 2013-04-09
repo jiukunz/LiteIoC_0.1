@@ -14,6 +14,7 @@ public class XMLHandler extends DefaultHandler {
     private String currentValue;
     private Bean currentBean;
     private Map<String,Bean> beanParams = newHashMap();
+    private Map<String,Bean> constructParams = newHashMap();
     private Stack<Bean> beans = new Stack<Bean>();
     private Container container;
 
@@ -38,7 +39,7 @@ public class XMLHandler extends DefaultHandler {
         String classString = attributes.getValue("class");
         String ref = attributes.getValue("ref");
 
-        if(qName.equals("bean") || qName.equals("property")) {
+        if(qName.equals("bean") || qName.equals("property") || qName.equals("construct")) {
 
             if(ref != null) {
               currentBean = container.getBeans().get(beanName);
@@ -78,7 +79,9 @@ public class XMLHandler extends DefaultHandler {
             if(currentBean.getValue() == null) {
 
                 currentBean.setParams(beanParams);
+                currentBean.setConstructParams(constructParams);
                 beanParams.clear();
+                constructParams.clear();
 
             }
 
@@ -88,6 +91,11 @@ public class XMLHandler extends DefaultHandler {
         if(qName.equals("property")) {
             currentBean = beans.pop();
             beanParams.put(currentBean.getName(), currentBean);
+        }
+
+        if(qName.equals("construct")) {
+            currentBean = beans.pop();
+            constructParams.put(currentBean.getName(), currentBean);
         }
 
     }

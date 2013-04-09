@@ -17,8 +17,20 @@ public class TestForXMLParser {
 
         Container result = parser.parse();
 
-        assertThat(result.getBeans().get("foo").getName(), is("foo"));
-        assertThat(result.getBeans().get("bar").getName(), is("bar"));
+        Bean bar = result.getBeans().get("bar");
+        assertThat(bar.getName(), is("bar"));
+        assertThat(bar.getParams().get("intProp").getValue(), is("5"));
+        assertThat(bar.getParams().get("strProp").getValue(), is("hello"));
+
+        Bean foo = result.getBeans().get("foo");
+        assertThat(foo.getName(), is("foo"));
+        assertThat(foo.getParams().get("intProp").getValue(), is("29"));
+        assertThat(foo.getParams().get("bar"), is(bar));
+
+        Bean constructFoo = result.getBeans().get("constructFoo");
+        assertThat(constructFoo.getName(), is("constructFoo"));
+        assertThat(constructFoo.getConstructParams().get("intProp").getValue(), is("28"));
+        assertThat(constructFoo.getConstructParams().get("bar"), is(bar));
 
     }
 

@@ -121,7 +121,7 @@ public class Bean {
     }
 
     public void setConstructParams(Map<String, Bean> constructParams) {
-        this.constructParams = constructParams;
+        this.constructParams.putAll(constructParams);
     }
 
 }

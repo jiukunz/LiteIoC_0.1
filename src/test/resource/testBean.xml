@@ -7,7 +7,7 @@
     </bean>
 
     <bean name="foo" class='com.thoughtworks.puppet.Foo'>
-        <property name='intProp' value="28"/>
+        <property name='intProp' value="29"/>
         <property name='bar' ref='bar'/>
     </bean>
 
