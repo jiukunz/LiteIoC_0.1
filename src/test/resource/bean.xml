@@ -1,14 +1,14 @@
 <container>
     <bean name='sbar' value="foo"/>
 
-    <bean name="bar" class='com.thoughtworks.Bar'>
+    <bean name="bar" class='com.thoughtworks.puppet.Bar'>
         <property name='name' value='john'/>
-        <property name='age' value="john"/>
+        <property name='intProp' value="john"/>
     </bean>
 
     <bean name="foo" class='Foo'>
         <property name='name' value="fool"/>
-        <property name='age' value="28"/>
+        <property name='intProp' value="28"/>
         <property name='bar' ref='bar'/>
     </bean>
 

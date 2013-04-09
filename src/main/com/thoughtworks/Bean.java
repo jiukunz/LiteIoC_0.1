@@ -1,5 +1,8 @@
 package com.thoughtworks;
 
+import com.thoughtworks.util.StringUtils;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import static com.google.common.collect.Maps.newHashMap;
@@ -48,25 +51,31 @@ public class Bean {
     public Object toInstance() throws Exception {
         Object object = clazz.newInstance();
         for (Map.Entry<String, Bean> entry : params.entrySet()) {
+
+            String propName = entry.getKey();
+
             if(entry.getValue().isPrimitive()){
+                Bean primitiveParam = entry.getValue();
 
-                //将字符串参数转换成真正的参数对象
-                String property = entry.getValue().getValue();
-                Class realClass = this.clazz.getDeclaredField(entry.getKey()).getType();
-                Object realParam = StringUtils.toPrimitive(realClass,property);
+                Object propValue = StringUtils.toPrimitive(getDeclaredType(propName), primitiveParam.getValue());
 
-                String param = entry.getKey();
-                param = param.substring(0, 1).toUpperCase() + param.substring(1);
-                clazz.getMethod("set" + param, new Class[]{realParam.getClass()}).invoke(object, realParam);
+                setProperty(object, propName, propValue);
             } else {
-                Object realParam = entry.getValue().toInstance();
+                Object propValue = entry.getValue().toInstance();
 
-                String param = entry.getKey();
-                param = param.substring(0, 1).toUpperCase() + param.substring(1);
-                clazz.getMethod("set" + param, new Class[]{realParam.getClass()}).invoke(object, realParam);
+                setProperty(object, propName, propValue);
             }
         }
         return object;
+    }
+
+    private Class<?> getDeclaredType(String propName) throws NoSuchFieldException {
+        return this.clazz.getDeclaredField(propName).getType();
+    }
+
+    private void setProperty(Object object, String param, Object realParam) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        param = param.substring(0, 1).toUpperCase() + param.substring(1);
+        clazz.getMethod("set" + param, new Class[]{realParam.getClass()}).invoke(object, realParam);
     }
 
     public Object construct() {
