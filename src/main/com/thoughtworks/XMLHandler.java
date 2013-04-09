@@ -15,8 +15,6 @@ public class XMLHandler extends DefaultHandler {
     private Bean currentBean;
     private Map<String,Bean> beanParams = newHashMap();
     private Stack<Bean> beans = new Stack<Bean>();
-    private boolean isInBasicBean = false;
-    private boolean isInCustomBean = false;
     private Container container;
 
     public XMLHandler(Container container) {
@@ -35,26 +33,27 @@ public class XMLHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        String beanName = attributes.getValue(0);
-
-        String attr = attributes.getValue(1);
-        String attrType = attributes.getQName(1);
+        String beanName = attributes.getValue("name");
+        String value = attributes.getValue("value");
+        String classString = attributes.getValue("class");
+        String ref = attributes.getValue("ref");
 
         if(qName.equals("bean") || qName.equals("property")) {
 
-            if(attrType.equals("ref")) {
+            if(ref != null) {
               currentBean = container.getBeans().get(beanName);
-            } else {
+            } else
+            {
 
                 currentBean = new Bean();
 
-                if(isBasicBean(attrType)) {
-                    isInBasicBean = true;
-                    currentBean.setValue(attr);
-                } else {
-                    isInCustomBean = true;
+                if(value != null) {
+                    currentBean.setValue(value);
+                }
+                if(classString != null)
+                {
                     try {
-                        currentBean.setClazz(Class.forName(attr));
+                        currentBean.setClazz(Class.forName(classString));
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -69,10 +68,6 @@ public class XMLHandler extends DefaultHandler {
         }
     }
 
-    private boolean isBasicBean(String attr) {
-        return attr.equals("value");
-    }
-
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
@@ -84,7 +79,6 @@ public class XMLHandler extends DefaultHandler {
 
                 currentBean.setParams(beanParams);
                 beanParams.clear();
-                isInCustomBean = false;
 
             }
 

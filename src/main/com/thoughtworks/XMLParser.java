@@ -17,7 +17,7 @@ public class XMLParser {
     public Container parse() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
-            factory.newSAXParser().parse(new File("src/test/resource/bean.xml").toURI().toURL().openStream(), new XMLHandler(container));
+            factory.newSAXParser().parse(new File("src/test/resource/testBean.xml").toURI().toURL().openStream(), new XMLHandler(container));
             return container;
         } catch (Exception e) {
             throw new RuntimeException(e);
