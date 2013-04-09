@@ -46,15 +46,25 @@ public class Bean {
     }
 
     public Object toInstance() throws Exception {
-        if (this.clazz == String.class || this.clazz == Integer.class) {
-            return value;
-        }
         Object object = clazz.newInstance();
         for (Map.Entry<String, Bean> entry : params.entrySet()) {
-            Object property = entry.getValue().toInstance();
-            String param = entry.getKey();
-            param = param.substring(0, 1).toUpperCase() + param.substring(1);
-            clazz.getMethod("set" + param, new Class[]{property.getClass()}).invoke(object, property);
+            if(entry.getValue().isPrimitive()){
+
+                //将字符串参数转换成真正的参数对象
+                String property = entry.getValue().getValue();
+                Class realClass = this.clazz.getDeclaredField(entry.getKey()).getType();
+                Object realParam = StringUtils.toPrimitive(realClass,property);
+
+                String param = entry.getKey();
+                param = param.substring(0, 1).toUpperCase() + param.substring(1);
+                clazz.getMethod("set" + param, new Class[]{realParam.getClass()}).invoke(object, realParam);
+            } else {
+                Object realParam = entry.getValue().toInstance();
+
+                String param = entry.getKey();
+                param = param.substring(0, 1).toUpperCase() + param.substring(1);
+                clazz.getMethod("set" + param, new Class[]{realParam.getClass()}).invoke(object, realParam);
+            }
         }
         return object;
     }
@@ -72,6 +82,6 @@ public class Bean {
     }
 
     private boolean isPrimitive(){
-        return !value.isEmpty();
+        return value != null;
     }
 }
