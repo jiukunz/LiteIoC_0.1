@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
+
 import static com.google.common.collect.Maps.newHashMap;
 
 public class Bean {
@@ -83,11 +84,6 @@ public class Bean {
         return value != null;
     }
 
-
-
-
-
-
     public String getValue() {
         return value;
     }
@@ -117,7 +113,7 @@ public class Bean {
     }
 
     public void setParams(Map<String, Bean> params) {
-        this.params = params;
+        this.params.putAll(params);
     }
 
     public Map<String, Bean> getConstructParams() {
@@ -127,4 +123,5 @@ public class Bean {
     public void setConstructParams(Map<String, Bean> constructParams) {
         this.constructParams = constructParams;
     }
+
 }

@@ -1,4 +1,5 @@
 <container>
+
     <bean name='sbar' value="foo"/>
 
     <bean name="bar" class='com.thoughtworks.puppet.Bar'>
