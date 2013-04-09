@@ -1,5 +1,6 @@
 package com.thoughtworks;
 
+import com.thoughtworks.Bean;
 import com.thoughtworks.puppet.Bar;
 import com.thoughtworks.puppet.Foo;
 import org.junit.Test;

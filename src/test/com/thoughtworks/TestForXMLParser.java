@@ -17,8 +17,8 @@ public class TestForXMLParser {
 
         Container result = parser.parse();
 
-        assertThat(container.getBeans().get("foo").getName(), is("foo"));
-        assertThat(container.getBeans().get("bar").getName(), is("bar"));
+        assertThat(result.getBeans().get("foo").getName(), is("foo"));
+        assertThat(result.getBeans().get("bar").getName(), is("bar"));
 
     }
 

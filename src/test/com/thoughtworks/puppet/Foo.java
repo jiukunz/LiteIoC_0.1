@@ -1,5 +1,7 @@
 package com.thoughtworks.puppet;
 
+import com.thoughtworks.puppet.Bar;
+
 public class Foo {
 
     private Integer intProp;
