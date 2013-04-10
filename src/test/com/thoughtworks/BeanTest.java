@@ -152,6 +152,5 @@ public class BeanTest {
         assertThat(foo.getBar().getStrProp(), is("hello"));
         assertThat(foo.getBar().getIntProp(), is(5));
 
-
     }
 }
