@@ -32,4 +32,11 @@ public class StringUtilsTest {
         String charValue = "cd";
         assertThat((Character)StringUtils.toPrimitive(Character.class,charValue),is('c'));
     }
+
+    @Test
+    public void shouldCapitalizeString() throws Exception {
+        String str = "original";
+
+        assertThat(StringUtils.capitalize(str),is("Original"));
+    }
 }

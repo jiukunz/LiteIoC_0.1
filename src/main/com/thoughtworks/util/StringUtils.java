@@ -11,4 +11,8 @@ public class StringUtils {
         return clazz.getMethod("valueOf", String.class).invoke(null,param);
     }
 
+    public static String capitalize(String str){
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
 }

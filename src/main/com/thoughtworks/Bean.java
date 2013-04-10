@@ -13,6 +13,7 @@ import static com.google.common.collect.Maps.newHashMap;
 
 public class Bean {
 
+    public static final String SET_PREFIX = "set";
     private String name;
     private Class clazz;
     private String value;
@@ -71,9 +72,8 @@ public class Bean {
         return constructor.newInstance(cParams.toArray());
     }
 
-    private void setProperty(Object object, String param, Object realParam) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        param = param.substring(0, 1).toUpperCase() + param.substring(1);
-        clazz.getMethod("set" + param, new Class[]{realParam.getClass()}).invoke(object, realParam);
+    private void setProperty(Object object, String propName, Object realParam) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        clazz.getMethod(SET_PREFIX + StringUtils.capitalize(propName), new Class[]{realParam.getClass()}).invoke(object, realParam);
     }
 
     private Class<?> getDeclaredType(String propName) throws NoSuchFieldException {
