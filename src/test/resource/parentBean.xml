@@ -1,0 +1,6 @@
+<context>
+    <bean name="foobar" class='com.thoughtworks.puppet.FooBar'>
+        <property name='foo' ref="foo"/>
+        <property name='bar' ref="bar"/>
+    </bean>
+</context>
