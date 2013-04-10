@@ -115,7 +115,7 @@ public class BeanTest {
 
     @Test
     public void couldUsingRefBean() throws Exception {
-        Container container = new Container();
+        Context context = new Context();
 
         Bean barStrProp = new Bean();
         barStrProp.setName("strProp");
@@ -130,7 +130,7 @@ public class BeanTest {
         barBean.setName("bar");
         barBean.getParams().put(barStrProp.getName(), barStrProp);
         barBean.getParams().put(barIntProp.getName(), barIntProp);
-        container.addBean("bar", barBean);
+        context.addBean("bar", barBean);
 
         Bean fooStrProp = new Bean();
         fooStrProp.setClazz(Integer.class);
@@ -146,7 +146,7 @@ public class BeanTest {
         fooBean.setName("foo");
         fooBean.getConstructParams().put(barBean.getName(), barRefBean);
         fooBean.getConstructParams().put(fooStrProp.getName(), fooStrProp);
-        Foo foo = (Foo) fooBean.toInstance(container);
+        Foo foo = (Foo) fooBean.toInstance(context);
 
         assertThat(foo.getIntProp(), is(28));
         assertThat(foo.getBar().getStrProp(), is("hello"));

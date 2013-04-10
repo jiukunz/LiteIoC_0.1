@@ -11,12 +11,12 @@ public class XMLParser {
         this.url = url;
     }
 
-    public Container parse() {
+    public Context parse() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
-            Container container = new Container();
-            factory.newSAXParser().parse(url.openStream(), new XMLHandler(container));
-            return container;
+            Context context = new Context();
+            factory.newSAXParser().parse(url.openStream(), new XMLHandler(context));
+            return context;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

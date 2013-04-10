@@ -1,4 +1,4 @@
-<container>
+<context>
     <bean name='primitiveBean' class="java.lang.Integer" value="28"/>
 
     <bean name="bar" class='com.thoughtworks.puppet.Bar'>
@@ -15,4 +15,4 @@
         <construct name='intProp' value="28"/>
         <construct name='bar' ref='bar'/>
     </bean>
-</container>
+</context>

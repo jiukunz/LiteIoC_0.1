@@ -12,10 +12,10 @@ import static org.hamcrest.core.Is.is;
 public class TestForXMLParser {
     @Test
     public void shouldParseXMLAndReturnBeanContainer() throws MalformedURLException, ClassNotFoundException {
-        Container container = new Container();
+        Context context = new Context();
         XMLParser parser = new XMLParser(new File("./src/test/resource/testBean.xml").toURI().toURL());
 
-        Container result = parser.parse();
+        Context result = parser.parse();
 
         Bean bar = result.getBeans().get("bar");
         assertThat(bar.getName(), is("bar"));

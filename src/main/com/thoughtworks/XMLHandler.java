@@ -15,10 +15,10 @@ public class XMLHandler extends DefaultHandler {
     private Map<String, Bean> beanParams = newHashMap();
     private Map<String, Bean> constructParams = newHashMap();
     private Stack<Bean> beans = new Stack<Bean>();
-    private Container container;
+    private Context context;
 
-    public XMLHandler(Container container) {
-        this.container = container;
+    public XMLHandler(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class XMLHandler extends DefaultHandler {
 
         if (qName.equals("bean") || qName.equals("property") || qName.equals("construct")) {
             if (ref != null) {
-                currentBean = container.getBeans().get(beanName);
+                currentBean = context.getBeans().get(beanName);
             } else {
                 currentBean = new Bean();
                 if (value != null) {
@@ -59,7 +59,7 @@ public class XMLHandler extends DefaultHandler {
                 beanParams.clear();
                 constructParams.clear();
             }
-            container.getBeans().put(currentBean.getName(), currentBean);
+            context.getBeans().put(currentBean.getName(), currentBean);
         }
 
         if (qName.equals("property")) {

@@ -1,4 +1,4 @@
-<container>
+<context>
 
     <bean name='sbar' value="foo"/>
 
@@ -13,4 +13,4 @@
         <property name='bar' ref='bar'/>
     </bean>
 
-</container>
+</context>

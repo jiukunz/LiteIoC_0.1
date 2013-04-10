@@ -18,7 +18,7 @@ public class Bean {
     private Class clazz;
     private String value;
     private boolean isRef;
-    private Container container;
+    private Context context;
 
     private Map<String, Bean> params = newHashMap();
     private Map<String, Bean> constructParams = newHashMap();
@@ -32,8 +32,8 @@ public class Bean {
         return StringUtils.toPrimitive(clazz,value);
     }
 
-    public Object toInstance(Container container) throws Exception {
-        this.container = container;
+    public Object toInstance(Context context) throws Exception {
+        this.context = context;
         if(!params.isEmpty()){
             return constructFromSet();
         } else if (!constructParams.isEmpty()){
@@ -48,7 +48,7 @@ public class Bean {
             String propName = entry.getKey();
             Bean propBean = entry.getValue();
             if(propBean.isRef()){
-                propBean = container.getBean(propName);
+                propBean = context.getBean(propName);
             }
 
             if(propBean.isPrimitive()){
@@ -72,7 +72,7 @@ public class Bean {
             String paramName = entry.getKey();
             Bean cParam = entry.getValue();
             if(cParam.isRef()){
-                cParam = container.getBean(paramName);
+                cParam = context.getBean(paramName);
             }
             Object constructParam;
             if(cParam.isPrimitive()){
