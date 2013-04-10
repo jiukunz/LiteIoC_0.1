@@ -13,7 +13,7 @@ public class TestForXMLParser {
     @Test
     public void shouldParseXMLAndReturnBeanContainer() throws MalformedURLException, ClassNotFoundException {
         Container container = new Container();
-        XMLParser parser = new XMLParser(new File("/src/test/resource/testBean.xml").toURI().toURL(),container);
+        XMLParser parser = new XMLParser(new File("./src/test/resource/testBean.xml").toURI().toURL(),container);
 
         Container result = parser.parse();
 

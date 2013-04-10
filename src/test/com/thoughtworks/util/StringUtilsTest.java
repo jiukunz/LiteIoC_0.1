@@ -1,6 +1,5 @@
-package com.thoughtworks;
+package com.thoughtworks.util;
 
-import com.thoughtworks.util.StringUtils;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
