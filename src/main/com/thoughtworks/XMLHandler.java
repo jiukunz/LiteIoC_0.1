@@ -84,7 +84,7 @@ public class XMLHandler extends DefaultHandler {
                 beanParams.clear();
                 constructParams.clear();
             }
-            context.getBeans().put(currentBean.getName(), currentBean);
+            context.addBean(currentBean.getName(), currentBean);
         }
 
         if (isInProperty(qName)) {

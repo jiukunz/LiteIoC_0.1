@@ -12,10 +12,6 @@ public class Context {
         return beans;
     }
 
-    public void setBeans(Map<String, Bean> beans) {
-        this.beans = beans;
-    }
-
     public void addBean(String name,Bean bean){
         beans.put(name,bean);
     }
@@ -25,10 +21,6 @@ public class Context {
             return beans.get(propName);
         }
         return parent.getBeans().get(propName);
-    }
-
-    public Context getParent() {
-        return parent;
     }
 
     public void setParent(Context parent) {
