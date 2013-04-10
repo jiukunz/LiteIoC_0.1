@@ -1,6 +1,5 @@
 package com.thoughtworks;
 
-import com.thoughtworks.Bean;
 import com.thoughtworks.puppet.Bar;
 import com.thoughtworks.puppet.Foo;
 import org.junit.Test;
@@ -42,8 +41,8 @@ public class BeanTest {
         barBean.getParams().put(barIntProp.getName(), barIntProp);
 
         Bar b = (Bar) barBean.toInstance();
-        assertThat(b.getStrProp(),is("hello"));
-        assertThat(b.getIntProp(),is(5));
+        assertThat(b.getStrProp(), is("hello"));
+        assertThat(b.getIntProp(), is(5));
     }
 
     @Test
@@ -74,9 +73,9 @@ public class BeanTest {
         fooBean.getParams().put(fooStrProp.getName(), fooStrProp);
         Foo foo = (Foo) fooBean.toInstance();
 
-        assertThat(foo.getIntProp(),is(28));
-        assertThat(foo.getBar().getStrProp(),is("hello"));
-        assertThat(foo.getBar().getIntProp(),is(5));
+        assertThat(foo.getIntProp(), is(28));
+        assertThat(foo.getBar().getStrProp(), is("hello"));
+        assertThat(foo.getBar().getIntProp(), is(5));
 
     }
 
@@ -108,9 +107,51 @@ public class BeanTest {
         fooBean.getConstructParams().put(fooStrProp.getName(), fooStrProp);
         Foo foo = (Foo) fooBean.toInstance();
 
-        assertThat(foo.getIntProp(),is(28));
-        assertThat(foo.getBar().getStrProp(),is("hello"));
-        assertThat(foo.getBar().getIntProp(),is(5));
+        assertThat(foo.getIntProp(), is(28));
+        assertThat(foo.getBar().getStrProp(), is("hello"));
+        assertThat(foo.getBar().getIntProp(), is(5));
+
+    }
+
+    @Test
+    public void couldUsingRefBean() throws Exception {
+        Container container = new Container();
+
+        Bean barStrProp = new Bean();
+        barStrProp.setName("strProp");
+        barStrProp.setValue("hello");
+
+        Bean barIntProp = new Bean();
+        barIntProp.setName("intProp");
+        barIntProp.setValue("5");
+
+        Bean barBean = new Bean();
+        barBean.setClazz(Bar.class);
+        barBean.setName("bar");
+        barBean.getParams().put(barStrProp.getName(), barStrProp);
+        barBean.getParams().put(barIntProp.getName(), barIntProp);
+        container.addBean("bar", barBean);
+
+        Bean fooStrProp = new Bean();
+        fooStrProp.setClazz(Integer.class);
+        fooStrProp.setName("intProp");
+        fooStrProp.setValue("28");
+
+        Bean barRefBean = new Bean();
+        barRefBean.setName("bar");
+        barRefBean.setRef(true);
+
+        Bean fooBean = new Bean();
+        fooBean.setClazz(Foo.class);
+        fooBean.setName("foo");
+        fooBean.getConstructParams().put(barBean.getName(), barRefBean);
+        fooBean.getConstructParams().put(fooStrProp.getName(), fooStrProp);
+        Foo foo = (Foo) fooBean.toInstance(container);
+
+        assertThat(foo.getIntProp(), is(28));
+        assertThat(foo.getBar().getStrProp(), is("hello"));
+        assertThat(foo.getBar().getIntProp(), is(5));
+
 
     }
 }

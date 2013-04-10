@@ -14,4 +14,12 @@ public class Container  {
     public void setBeans(Map<String, Bean> beans) {
         this.beans = beans;
     }
+
+    public void addBean(String name,Bean bean){
+        beans.put(name,bean);
+    }
+
+    public Bean getBean(String propName) {
+        return beans.get(propName);
+    }
 }

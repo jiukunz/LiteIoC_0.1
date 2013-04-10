@@ -18,6 +18,7 @@ public class Bean {
     private Class clazz;
     private String value;
     private boolean isRef;
+    private Container container;
 
     private Map<String, Bean> params = newHashMap();
     private Map<String, Bean> constructParams = newHashMap();
@@ -31,22 +32,33 @@ public class Bean {
         return StringUtils.toPrimitive(clazz,value);
     }
 
+    public Object toInstance(Container container) throws Exception {
+        this.container = container;
+        if(!params.isEmpty()){
+            return constructFromSet();
+        } else if (!constructParams.isEmpty()){
+            return constructFromConstructor();
+        }
+        return StringUtils.toPrimitive(clazz,value);
+    }
+
     private Object constructFromSet() throws Exception {
         Object object = clazz.newInstance();
         for (Map.Entry<String, Bean> entry : params.entrySet()) {
-
             String propName = entry.getKey();
+            Bean propBean = entry.getValue();
+            if(propBean.isRef()){
+                propBean = container.getBean(propName);
+            }
 
-            if(entry.getValue().isPrimitive()){
-                Bean primitiveParam = entry.getValue();
-
-                Object propValue = StringUtils.toPrimitive(getDeclaredType(propName), primitiveParam.getValue());
+            if(propBean.isPrimitive()){
+                Object propValue = StringUtils.toPrimitive(getDeclaredType(propName), propBean.getValue());
 
                 setProperty(object, propName, propValue);
             } else {
-                Object propValue = entry.getValue().toInstance();
+                Object propObject = propBean.toInstance();
 
-                setProperty(object, propName, propValue);
+                setProperty(object, propName, propObject);
             }
         }
         return object;
@@ -57,8 +69,11 @@ public class Bean {
         Class[] paramTypes = new Class[constructParams.size()];
         int i = 0;
         for (Map.Entry<String,Bean> entry : constructParams.entrySet()){
+            String paramName = entry.getKey();
             Bean cParam = entry.getValue();
-
+            if(cParam.isRef()){
+                cParam = container.getBean(paramName);
+            }
             Object constructParam;
             if(cParam.isPrimitive()){
                 constructParam = StringUtils.toPrimitive(getDeclaredType(cParam.getName()), cParam.getValue());
@@ -132,4 +147,5 @@ public class Bean {
     public void setRef(boolean ref) {
         isRef = ref;
     }
+
 }
