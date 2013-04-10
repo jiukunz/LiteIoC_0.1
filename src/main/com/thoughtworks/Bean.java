@@ -17,6 +17,7 @@ public class Bean {
     private String name;
     private Class clazz;
     private String value;
+    private boolean isRef;
 
     private Map<String, Bean> params = newHashMap();
     private Map<String, Bean> constructParams = newHashMap();
@@ -124,4 +125,11 @@ public class Bean {
         this.constructParams.putAll(constructParams);
     }
 
+    public boolean isRef() {
+        return isRef;
+    }
+
+    public void setRef(boolean ref) {
+        isRef = ref;
+    }
 }
