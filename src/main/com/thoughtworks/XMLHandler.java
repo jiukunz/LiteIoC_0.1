@@ -40,7 +40,13 @@ public class XMLHandler extends DefaultHandler {
         }
 
         if (ref != null) {
-            currentBean = context.getBeans().get(beanName);
+            if(context.getBeans().containsKey(beanName)) {
+                currentBean = context.getBeans().get(beanName);
+            } else {
+                currentBean = new Bean();
+                currentBean.setRef(true);
+                currentBean.setName(beanName);
+            }
         } else
         {
             currentBean = new Bean();
