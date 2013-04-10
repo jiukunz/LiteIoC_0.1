@@ -13,7 +13,7 @@ import static com.google.common.collect.Maps.newHashMap;
 
 public class Bean {
 
-    public static final String SET_PREFIX = "set";
+    private static final String SET_PREFIX = "set";
     private String name;
     private Class clazz;
     private String value;
