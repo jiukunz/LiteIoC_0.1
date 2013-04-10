@@ -54,6 +54,8 @@ public class TestForXMLParser {
         assertThat(constructFoo.getConstructParams().get("intProp").getValue(), is("28"));
         assertThat(constructFoo.getConstructParams().get("bar").isRef(), is(true));
 
+        assertThat(result.getBeans().get("superFooBar").isRef(), is(true));
+
     }
 
 

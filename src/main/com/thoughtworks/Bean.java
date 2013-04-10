@@ -17,12 +17,14 @@ public class Bean {
     private String name;
     private Class clazz;
     private String value;
+    private String refName;
+
     private boolean isRef;
+
     private Context context;
-
     private Map<String, Bean> params = newHashMap();
-    private Map<String, Bean> constructParams = newHashMap();
 
+    private Map<String, Bean> constructParams = newHashMap();
     public  Object toInstance() throws Exception {
         if(!params.isEmpty()){
             return constructFromSet();
@@ -34,6 +36,11 @@ public class Bean {
 
     public Object toInstance(Context context) throws Exception {
         this.context = context;
+        if(isRef()) {
+            setClazz(context.getBean(refName).getClazz());
+            params = context.getBean(refName).getParams();
+            constructParams = context.getBean(name).getConstructParams();
+        }
         if(!params.isEmpty()){
             return constructFromSet();
         } else if (!constructParams.isEmpty()){
@@ -146,6 +153,10 @@ public class Bean {
 
     public void setRef(boolean ref) {
         isRef = ref;
+    }
+
+    public void setRefName(String refName) {
+        this.refName = refName;
     }
 
 }

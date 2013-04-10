@@ -6,7 +6,7 @@ import static com.google.common.collect.Maps.newHashMap;
 
 public class Context {
     private Map<String,Bean> beans = newHashMap();
-    private Context parent = new Context();
+    private Context parent;
 
     public Map<String, Bean> getBeans() {
         return beans;

@@ -15,4 +15,6 @@
         <property name='strProp' value='hello'/>
         <property name='intProp' value="5"/>
     </bean>
+
+    <bean name="superFooBar" ref="foobar"/>
 </context>

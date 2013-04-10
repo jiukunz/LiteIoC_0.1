@@ -4,6 +4,10 @@ public class FooBar {
     private Foo foo;
     private Bar bar;
 
+    public FooBar() {
+
+    }
+
     public FooBar(Foo foo, Bar bar) {
         this.foo = foo;
         this.bar = bar;

@@ -46,6 +46,7 @@ public class XMLHandler extends DefaultHandler {
                 currentBean = new Bean();
                 currentBean.setRef(true);
                 currentBean.setName(beanName);
+                currentBean.setRefName(ref);
             }
         } else
         {
