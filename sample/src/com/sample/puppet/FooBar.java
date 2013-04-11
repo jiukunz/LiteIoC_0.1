@@ -4,8 +4,8 @@ public class FooBar {
     private Foo foo;
     private Bar bar;
 
+    //required
     public FooBar() {
-
     }
 
     public FooBar(Foo foo, Bar bar) {
@@ -27,5 +27,13 @@ public class FooBar {
 
     public void setBar(Bar bar) {
         this.bar = bar;
+    }
+
+    @Override
+    public String toString() {
+        return "FooBar{" +
+                "foo=" + foo +
+                ", bar=" + bar +
+                '}';
     }
 }

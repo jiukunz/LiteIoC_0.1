@@ -20,4 +20,12 @@ public class Bar {
     public void setIntProp(Integer intProp) {
         this.intProp = intProp;
     }
+
+    @Override
+    public String toString() {
+        return "Bar{" +
+                "strProp='" + strProp + '\'' +
+                ", intProp=" + intProp +
+                '}';
+    }
 }

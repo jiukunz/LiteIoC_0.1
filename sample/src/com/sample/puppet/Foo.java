@@ -6,7 +6,7 @@ public class Foo {
     private Bar bar;
 
     //Required
-    public Foo(){
+    public Foo() {
     }
 
     public Foo(Integer intProp, Bar bar) {
@@ -28,5 +28,13 @@ public class Foo {
 
     public void setBar(Bar bar) {
         this.bar = bar;
+    }
+
+    @Override
+    public String toString() {
+        return "Foo{" +
+                "intProp=" + intProp +
+                ", bar=" + bar +
+                '}';
     }
 }

@@ -11,47 +11,45 @@ import java.io.File;
 public class PeaPod {
     public static void main(String[] args) throws Exception {
         XMLParser parentParser = new XMLParser(new File("./sample/resource/parentBean.xml").toURI().toURL());
-        Context parentResult = parentParser.parse();
-
         XMLParser parser = new XMLParser(new File("./sample/resource/testBean.xml").toURI().toURL());
 
+        Context parentResult = parentParser.parse();
         Context result = parser.parse();
-
         result.setParent(parentResult);
-        parentResult.setParent(result);
 
         Foo foo = (Foo) result.getBean("foo").toInstance(result);
-        System.out.println("Foo:");
-        System.out.println(foo.getBar().getIntProp());
-        System.out.println(foo.getBar().getStrProp());
-        System.out.println(foo.getIntProp());
+        System.out.println("Construct foo with set methods:");
+        System.out.println(foo);
+
+        System.out.println("\n*******************************************************************\n");
 
         Bar bar = (Bar) result.getBean("bar").toInstance(result);
-        System.out.println("Bar:");
-        System.out.println(bar.getStrProp());
-        System.out.println(bar.getIntProp());
+        System.out.println("Construct bar with set methods:");
+        System.out.println(bar);
+
+        System.out.println("\n*******************************************************************\n");
 
         foo = (Foo) result.getBean("constructFoo").toInstance(result);
-        System.out.println("ConstructFoo:");
-        System.out.println(foo.getBar().getIntProp());
-        System.out.println(foo.getBar().getStrProp());
-        System.out.println(foo.getIntProp());
+        System.out.println("Construct constructFoo with constructor:");
+        System.out.println(foo);
+
+        System.out.println("\n*******************************************************************\n");
 
         int i = (Integer) result.getBeans().get("primitiveBean").toInstance(result);
-        System.out.println("Integer Bean:");
+        System.out.println("Construct primitive Bean:");
         System.out.println(i);
 
+        System.out.println("\n*******************************************************************\n");
+
         FooBar fooBar = (FooBar) result.getBean("foobar").toInstance(result);
-        System.out.println("FooBar Bean");
-        System.out.println(fooBar.getFoo().getBar().getIntProp());
-        System.out.println(fooBar.getFoo().getBar().getStrProp());
-        System.out.println(fooBar.getFoo().getIntProp());
+        System.out.println("Construct foobar only in parent context");
+        System.out.println(fooBar);
+
+        System.out.println("\n*******************************************************************\n");
 
         FooBar superFooBar = (FooBar) result.getBean("superFooBar").toInstance(result);
-        System.out.println("super FooBar Bean");
-        System.out.println(superFooBar.getFoo().getBar().getIntProp());
-        System.out.println(superFooBar.getFoo().getBar().getStrProp());
-        System.out.println(superFooBar.getFoo().getIntProp());
+        System.out.println("Construct foobar using alias superFooBar");
+        System.out.println(superFooBar);
 
     }
 }
