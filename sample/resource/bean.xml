@@ -1,0 +1,16 @@
+<context>
+
+    <bean name='sbar' value="foo"/>
+
+    <bean name="bar" class='com.sample.puppet.Bar'>
+        <property name='name' value='john'/>
+        <property name='intProp' value="john"/>
+    </bean>
+
+    <bean name="foo" class='com.sample.puppet.Foo'>
+        <property name='name' value="fool"/>
+        <property name='intProp' value="28"/>
+        <property name='bar' ref='bar'/>
+    </bean>
+
+</context>

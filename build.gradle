@@ -1,4 +1,4 @@
-project(':'){
+project(':') {
     apply plugin: 'java'
     apply plugin: 'idea'
 
@@ -7,11 +7,23 @@ project(':'){
     }
     dependencies {
         compile 'com.google.guava:guava:14.0.1'
+
         testCompile 'junit:junit:4.11',
                 'org.mockito:mockito-all:1.9.5'
     }
 
     version = '1.0'
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main'
+            }
+        }
+    }
+
+    jar {
+        from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 
 }
 

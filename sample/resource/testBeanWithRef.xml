@@ -1,0 +1,20 @@
+<context>
+    <bean name='primitiveBean' class="java.lang.Integer" value="28"/>
+
+    <bean name="foo" class='com.sample.puppet.Foo'>
+        <property name='intProp' value="29"/>
+        <property name='bar' ref='bar'/>
+    </bean>
+
+    <bean name="constructFoo" class='com.sample.puppet.Foo'>
+        <construct name='intProp' value="28"/>
+        <construct name='bar' ref='bar'/>
+    </bean>
+
+    <bean name="bar" class='com.sample.puppet.Bar'>
+        <property name='strProp' value='hello'/>
+        <property name='intProp' value="5"/>
+    </bean>
+
+    <bean name="superFooBar" ref="foobar"/>
+</context>
